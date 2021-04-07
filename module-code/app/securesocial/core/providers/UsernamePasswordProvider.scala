@@ -19,6 +19,7 @@ package securesocial.core.providers
 import io.methvin.play.autoconfig.AutoConfig
 import org.joda.time.DateTime
 import play.api.data.Form
+import play.api.data.FormBinding.Implicits.formBinding
 import play.api.data.Forms._
 import play.api.i18n.{ I18nSupport, MessagesApi }
 import play.api.mvc._
