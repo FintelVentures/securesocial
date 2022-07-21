@@ -1,3 +1,16 @@
+# SecureSocial for Play Framework 2.7
+
+This is a fork of a fork of [SecureSocial](https://github.com/jaliss/securesocial), made because we needed to migrate our app to Play Framework 2.7 and could find no other fork that successfully ran in the environment.
+
+This fork will compile and run in Play Framwork 2.7. It is currently being used in production with the following:
+
+- Scala version 2.12.12
+- sbt Version 1.3.13
+- Play Framework 2.7.9
+- PayInsafe Ebean Plugin 19.10.u1
+
+We intend to continue to maintain this fork and ultimately migrate it to Play Framework 2.8. We welcome your pull requests.
+
 # A fork of SecureSocial
 
 This is a fork of [SecureSocial](https://github.com/jaliss/securesocial), originally developped by Jorge Aliss. We heavily use this plugin for one of our projects, and we sometimes want to change it. Even though We send pull requests, we don't want to stop our development unitil they are merged, so we decided to fork it. Basically, we send a PR of every change, but it's up to the original author whether the change is merged or not.
