@@ -22,8 +22,6 @@ POST        /password        @securesocial.controllers.PasswordChange.handlePass
 # Authentication entry points for all providers
 GET         /authenticate/:provider        @securesocial.controllers.ProviderController.authenticate(provider, redirectTo: Option[String] ?= None, scope: Option[String] ?= None, authorizationUrlParams: Map[String, String] ?= Map(), saveMode: Option[String] ?= None, miscParam: Option[String] ?= None)
 
-#hopefully temp fix for CRSF logout issue
-+nocsrf
 POST        /authenticate/:provider        @securesocial.controllers.ProviderController.authenticateByPost(provider, redirectTo: Option[String], scope: Option[String], authorizationUrlParams: Map[String, String] ?= Map(), saveMode: Option[String], miscParam: Option[String] ?= None)
 
 POST        /api/authenticate/:provider    @securesocial.controllers.LoginApi.authenticate(provider, builder = "token")
