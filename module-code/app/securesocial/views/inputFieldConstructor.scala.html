@@ -1,13 +1,13 @@
 @(elements: views.html.helper.FieldElements)
 
-<div class="control-group @elements.args.get('_class) @if(elements.hasErrors) {error}" id="@elements.args.get('_id).getOrElse(elements.id + "_field")">
-    <label class="control-label" for="@elements.id">@elements.label</label>
-    <div class="controls">
+<div class="form-group @elements.args.get('_class) @if(elements.hasErrors) {error}" id="@elements.args.get('_id).getOrElse(elements.id + "_field")">
+    <div >
+        <label for="@elements.id">@elements.label</label>
         @elements.input
 	@if( elements.hasErrors ) {
-            <span class="help-inline">@elements.errors.mkString(", ")</span>
+            <span class="form-text">@elements.errors.mkString(", ")</span>
         } else {
-            <span class="help-block">@elements.infos.mkString(", ")</span>
+            <span class="form-text text-muted">@elements.infos.mkString(", ")</span>
         }
     </div>
 </div>

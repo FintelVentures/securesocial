@@ -182,6 +182,12 @@ object RoutesService {
       securesocial.controllers.routes.Assets.at(value)
     }
 
+    protected def absoluteValueFor(key: String) = {
+      val value = configuration.get[String](key)
+      logger.debug(s"[securesocial] $key = $value")
+      Call("GET", value)
+    }
+
     protected def valueFor(key: String, default: String) = {
       val value = configuration.get[Option[String]](key).getOrElse(default)
       logger.debug(s"[securesocial] $key = $value")
@@ -198,13 +204,13 @@ object RoutesService {
      * Loads the Jquery file to use from configuration, using a default one if not provided
      * @return the path to Jquery file to use
      */
-    override val jqueryPath = valueFor(JQueryKey)
+    override val jqueryPath = absoluteValueFor(JQueryKey)
 
     /**
      * Loads the Bootstrap CSS file to use from configuration, using a default one if not provided
      * @return the path to Bootstrap CSS file to use
      */
-    override val bootstrapCssPath = valueFor(BootstrapCssKey)
+    override val bootstrapCssPath = absoluteValueFor(BootstrapCssKey)
     /**
      * Loads the Custom Css file to use from configuration. If there is none define, none will be used
      * @return Option containing a custom css file or None

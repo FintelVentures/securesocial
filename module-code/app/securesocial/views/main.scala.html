@@ -15,13 +15,9 @@
         <script src="@env.routes.jqueryPath" type="text/javascript"></script>
     </head>
     <body>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <span class="brand" >@Messages("securesocial.appName")</span>
-                </div>
-            </div>
-        </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <span class="navbar-brand" >@Messages("securesocial.appName")</span>
+        </nav>
 
         <div class="container" style="padding-top:30px">
             @content

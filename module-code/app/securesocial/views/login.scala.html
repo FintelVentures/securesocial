@@ -25,6 +25,25 @@
         </div>
     }
 
+    <div >
+        <div style="font-weight: bolder; font-size: larger">Important Note</div>
+        <div style="font-size: smaller">
+            <p>In the last few days we have experienced severe technical difficulties that have prevented many people from accessing their accounts. This issue presented itself
+                in the form of a gray "Unauthorized" page, even when logging in with valid credentials. It took
+                a lot of time, but we were ultimately able to trace the problem to an issue with Cloudflare caching. This issue has been resolved.</p>
+            <p>However, we have received reports of a few people with continued problems. They use their regular credentials on this page, but after submitting them, they are sent back here with a red message that reads <span style="color:red;">You must login to access this page</span>.
+            We believe this problem is a separate issue and related to browser cookies. The problem seems to resolve itself in due time, but there are a few things you might have success with
+                immediately:
+            <ul>
+                <li>Use a different browser</li>
+                <li>Use a browser in incognito / private mode (this uses fresh cookies)</li>
+                <li>Delete all browser cookies for the fintel.io domain</li>
+            </ul>
+            </p>
+            <p>We sincerely apologize for the inconvenience and trouble this has caused, and we appreciate your patience.</p>
+        </div>
+    </div>
+
 
 @defining( env.providerIds.filter(_ != UsernamePassword) ) { externalProviderIds =>
 
