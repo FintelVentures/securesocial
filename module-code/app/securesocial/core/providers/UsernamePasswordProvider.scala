@@ -97,7 +97,7 @@ class UsernamePasswordProvider[U](
       },
       credentials => {
         val userId = credentials._1.toLowerCase
-        val password = credentials._2
+        val password = credentials._2.trim
 
         profileForCredentials(userId, password).flatMap {
           case Some(profile) => withUpdatedAvatar(profile).map(Authenticated)
