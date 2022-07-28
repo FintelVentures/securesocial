@@ -78,7 +78,7 @@ object PasswordHasher {
      * @return a PasswordInfo containing the hashed password.
      */
     def hash(plainPassword: String): PasswordInfo = {
-      PasswordInfo(id, BCrypt.hashpw(plainPassword, BCrypt.gensalt(logRounds)))
+      PasswordInfo(id, BCrypt.hashpw(plainPassword.trim, BCrypt.gensalt(logRounds)))
     }
 
     /**
@@ -89,7 +89,7 @@ object PasswordHasher {
      * @return true if the password matches, false otherwise.
      */
     def matches(passwordInfo: PasswordInfo, suppliedPassword: String): Boolean = {
-      BCrypt.checkpw(suppliedPassword, passwordInfo.password)
+      BCrypt.checkpw(suppliedPassword.trim, passwordInfo.password)
     }
   }
 

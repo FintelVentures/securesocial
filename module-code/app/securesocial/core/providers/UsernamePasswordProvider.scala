@@ -62,7 +62,7 @@ class UsernamePasswordProvider[U](
       for (
         user <- maybeUser;
         pinfo <- user.passwordInfo;
-        hasher <- passwordHashers.get(pinfo.hasher) if hasher.matches(pinfo, password)
+        hasher <- passwordHashers.get(pinfo.hasher) if hasher.matches(pinfo, password.trim)
       ) yield {
         user
       }

@@ -54,7 +54,7 @@ object PasswordValidator {
    */
   class Default(requiredLength: Int) extends PasswordValidator {
     override def validate(password: String): Either[(String, Seq[Any]), Unit] = {
-      if (password.length >= requiredLength) {
+      if (password.trim.length >= requiredLength) {
         Right(())
       } else
         Left((Default.InvalidPasswordMessage, Seq(requiredLength)))
