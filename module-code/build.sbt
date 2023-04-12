@@ -26,11 +26,11 @@ resolvers ++= Seq(
   Resolver.typesafeRepo("releases")
 )
 
-organization := "tv.kazu"
+organization := "io.fintel"
 
 organizationName := ""
 
-organizationHomepage := Some(new URL("http://kazu.tv"))
+organizationHomepage := Some(new URL("https://github.com/FintelVentures"))
 
 publishMavenStyle := true
 
@@ -46,20 +46,18 @@ description := "An authentication module for Play Framework applications support
 
 licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
-homepage := Some(url("http://www.securesocial.ws"))
+homepage := Some(url("https://github.com/FintelVentures"))
 
 pomExtra := (
   <scm>
-    <url>https://github.com/k4200/securesocial</url>
-    <connection>scm:git:git@github.com:k4200/securesocial.git</connection>
-    <developerConnection>scm:git:https://github.com/k4200/securesocial.git</developerConnection>
+    <url>https://github.com/FintelVentures/securesocial</url>
+    <connection>scm:git:git@github.com:FintelVentures/securesocial.git</connection>
+    <developerConnection>scm:git:https://github.com/FintelVentures/securesocial.git</developerConnection>
   </scm>
   <developers>
     <developer>
-      <id>k4200</id>
-      <name>KASHIMA Kazuo</name>
-      <email>k4200 [at] kazu.tv</email>
-      <url>https://twitter.com/k4200</url>
+      <id>risenhoover</id>
+      <name>Wilton Risenhoover</name>
     </developer>
   </developers>
 )
