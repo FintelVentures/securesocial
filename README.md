@@ -1,3 +1,11 @@
+# SecureSocial - the Fintel Fork
+
+We are happy to report that SecureSocial is alive. Fintel uses SecureSocial and we remain committed to continuing the project. This is the official Fintel Ventures fork, and it combines the great work done by [@k4200](https://github.com/k4200) and [@risenhoover](https://github.com/risenhoover) in getting the project to run under Play Framework 2.7.
+
+Based on the history of this code, the current code *may* contain some Fintel-specific bits and we will work to remove them as quickly as we find them, in order to return this fork to general use.
+
+Play Framwork 2.8 is on our roadmap and we welcome any and all pull requests to help us get there.
+
 # SecureSocial for Play Framework 2.7
 
 This is a fork of a fork of [SecureSocial](https://github.com/jaliss/securesocial), made because we needed to migrate our app to Play Framework 2.7 and could find no other fork that successfully ran in the environment.
