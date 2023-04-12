@@ -4,7 +4,7 @@ version := Common.version
 
 scalaVersion := Common.scalaVersion
 
-libraryDependencies ++= Seq("tv.kazu" %% "securesocial" % version.value, javaCore, guice)
+libraryDependencies ++= Seq("io.fintel" %% "securesocial" % version.value, javaCore, guice)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 

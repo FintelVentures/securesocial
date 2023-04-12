@@ -8,7 +8,7 @@ crossScalaVersions := Common.crossScalaVersions
 
 libraryDependencies ++= Seq(
   specs2 % "test",
-  "tv.kazu" %% "securesocial" % version.value,
+  "io.fintel" %% "securesocial" % version.value,
   guice
 )
 
