@@ -6,7 +6,9 @@ Based on the history of this code, the current code *may* contain some Fintel-sp
 
 Play Framwork 2.8 is on our roadmap and we welcome any and all pull requests to help us get there.
 
-# SecureSocial for Play Framework 2.7
+The following comments are historical and included from prior forks (credited when possible)
+
+# SecureSocial for Play Framework 2.7 (@k4200 comments)
 
 This is a fork of a fork of [SecureSocial](https://github.com/jaliss/securesocial), made because we needed to migrate our app to Play Framework 2.7 and could find no other fork that successfully ran in the environment.
 
