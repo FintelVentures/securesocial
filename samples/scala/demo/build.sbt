@@ -1,5 +1,3 @@
-import PlayKeys._
-
 name    := "scala-demo"
 
 version := Common.version
@@ -10,9 +8,8 @@ crossScalaVersions := Common.crossScalaVersions
 
 libraryDependencies ++= Seq(
   specs2 % "test",
-  "ws.securesocial" %% "securesocial" % version.value,
-  guice,
-  ehcache
+  "tv.kazu" %% "securesocial" % version.value,
+  guice
 )
 
 resolvers += Resolver.sonatypeRepo("snapshots")

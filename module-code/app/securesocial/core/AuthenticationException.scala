@@ -16,7 +16,21 @@
  */
 package securesocial.core
 
+import play.api.mvc.Call
+
 /**
  * An exception thrown when there is an error in the authentication flow
  */
-case class AuthenticationException() extends Exception
+class AuthenticationException(message: Option[String] = None) extends Exception(message.getOrElse(null))
+
+class RecoverableAuthenticationException(val message: Option[String], val redirectUrl: Option[Call]) extends AuthenticationException(message)
+
+object RecoverableAuthenticationException {
+  def apply(): RecoverableAuthenticationException = {
+    new RecoverableAuthenticationException(None, None)
+  }
+
+  def apply(message: String, redirectUrl: Call): RecoverableAuthenticationException = {
+    new RecoverableAuthenticationException(Some(message), Some(redirectUrl))
+  }
+}

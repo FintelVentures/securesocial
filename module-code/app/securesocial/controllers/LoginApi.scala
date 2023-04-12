@@ -52,7 +52,7 @@ trait BaseLoginApi extends SecureSocialController {
   def authenticate(providerId: String, builderId: String) = Action.async { implicit request =>
     val result = for (
       builder <- env.authenticatorService.find(builderId);
-      provider <- env.providers.get(providerId) if provider.isInstanceOf[ApiSupport]
+      provider <- scala.util.Try(env.createProvider(providerId)).toOption if env.providerIds.contains(providerId)
     ) yield {
       provider.asInstanceOf[ApiSupport].authenticateForApi.flatMap {
         case authenticated: Authenticated =>

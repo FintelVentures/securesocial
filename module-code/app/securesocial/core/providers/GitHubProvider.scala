@@ -39,6 +39,7 @@ class GitHubProvider(
   val Name = "name"
   val AvatarUrl = "avatar_url"
   val Email = "email"
+  val Login = "login"
 
   override val id = GitHubProvider.GitHub
 
@@ -54,7 +55,8 @@ class GitHubProvider(
       accessToken.get,
       values.get(OAuth2Constants.TokenType),
       values.get(OAuth2Constants.ExpiresIn).map(_.toInt),
-      values.get(OAuth2Constants.RefreshToken))
+      values.get(OAuth2Constants.RefreshToken),
+      values.get(OAuth2Constants.Scope))
   }
 
   def fillProfile(info: OAuth2Info): Future[BasicProfile] = {
@@ -65,10 +67,13 @@ class GitHubProvider(
           throw new AuthenticationException()
         case _ =>
           val userId = (me \ Id).as[Int]
+          val login = (me \ Login).as[String]
           val displayName = (me \ Name).asOpt[String]
           val avatarUrl = (me \ AvatarUrl).asOpt[String]
           val email = (me \ Email).asOpt[String].filter(!_.isEmpty)
-          BasicProfile(id, userId.toString, None, None, displayName, email, avatarUrl, authMethod, oAuth2Info = Some(info))
+          val extraInfo = Map(
+            "login" -> login)
+          BasicProfile(id, userId.toString, None, None, displayName, email, avatarUrl, authMethod, oAuth2Info = Some(info), extraInfo = Some(extraInfo))
       }
     } recover {
       case e: AuthenticationException => throw e

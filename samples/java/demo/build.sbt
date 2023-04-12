@@ -1,14 +1,10 @@
-import PlayKeys._
-
 name    := "java-demo"
 
 version := Common.version
 
 scalaVersion := Common.scalaVersion
 
-crossScalaVersions := Common.crossScalaVersions
-
-libraryDependencies ++= Seq("ws.securesocial" %% "securesocial" % version.value, javaCore, guice, ehcache)
+libraryDependencies ++= Seq("tv.kazu" %% "securesocial" % version.value, javaCore, guice)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 

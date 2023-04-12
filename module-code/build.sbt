@@ -1,5 +1,10 @@
 import play.sbt.PlayImport.PlayKeys._
 
+// import SonatypeKeys._
+
+// Import default settings. This changes `publishTo` settings to use the Sonatype repository and add several commands for publishing.
+// sonatypeSettings
+
 name := "SecureSocial"
 
 version := Common.version
@@ -21,11 +26,11 @@ resolvers ++= Seq(
   Resolver.typesafeRepo("releases")
 )
 
-organization := "ws.securesocial"
+organization := "tv.kazu"
 
-organizationName := "SecureSocial"
+organizationName := ""
 
-organizationHomepage := Some(new URL("http://www.securesocial.ws"))
+organizationHomepage := Some(new URL("http://kazu.tv"))
 
 publishMavenStyle := true
 
@@ -33,13 +38,7 @@ publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (version.value.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
+publishTo := sonatypePublishTo.value
 
 startYear := Some(2012)
 
@@ -51,16 +50,16 @@ homepage := Some(url("http://www.securesocial.ws"))
 
 pomExtra := (
   <scm>
-    <url>https://github.com/jaliss/securesocial</url>
-    <connection>scm:git:git@github.com:jaliss/securesocial.git</connection>
-    <developerConnection>scm:git:https://github.com/jaliss/securesocial.git</developerConnection>
+    <url>https://github.com/k4200/securesocial</url>
+    <connection>scm:git:git@github.com:k4200/securesocial.git</connection>
+    <developerConnection>scm:git:https://github.com/k4200/securesocial.git</developerConnection>
   </scm>
   <developers>
     <developer>
-      <id>jaliss</id>
-      <name>Jorge Aliss</name>
-      <email>jaliss [at] gmail.com</email>
-      <url>https://twitter.com/jaliss</url>
+      <id>k4200</id>
+      <name>KASHIMA Kazuo</name>
+      <email>k4200 [at] kazu.tv</email>
+      <url>https://twitter.com/k4200</url>
     </developer>
   </developers>
 )
@@ -71,3 +70,4 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-encoding", "UTF-8",  
 
 // packagedArtifacts += ((artifact in playPackageAssets).value -> playPackageAssets.value)
 
+routesImport += "securesocial.controllers.Implicits._"

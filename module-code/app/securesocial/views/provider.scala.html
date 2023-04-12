@@ -3,10 +3,11 @@
 @import securesocial.core.AuthenticationMethod._
 @import play.api.Logger
 @import helper._
+@import scala.util.Try
 
 @implicitFieldConstructor = @{ FieldConstructor(securesocial.views.html.inputFieldConstructor.f) }
 
-@env.providers.get(providerId).map { provider =>
+@Try(env.createProvider(providerId)).toOption.map { provider =>
             @if( provider.authMethod == OAuth1 || provider.authMethod == OAuth2 ) {
                 @defining( "images/providers/%s.png".format(provider.id) ) { imageUrl =>
                     <a href="@env.routes.authenticationUrl(provider.id)"> <img src="@securesocial.controllers.routes.Assets.at(imageUrl)"/></a>
@@ -57,6 +58,6 @@
     @*****************************************
      * Todo: throw a runtime exception? this might need improvement
      *****************************************@
-    @Logger.error("[securesocial] unknown provider '%s'. Can't render it.".format(providerId))
+    @Logger("provider.scala.html").error("[securesocial] unknown provider '%s'. Can't render it.".format(providerId))
     { throw new RuntimeException("Unknown provider '%s') }
 }

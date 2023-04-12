@@ -17,9 +17,9 @@
 package securesocial.controllers
 
 import javax.inject.Inject
-
 import play.api.Configuration
 import play.api.data.Form
+import play.api.data.FormBinding.Implicits.formBinding
 import play.api.data.Forms._
 import play.api.i18n.{ I18nSupport, Messages }
 import play.api.mvc.{ ControllerComponents, Result }
@@ -129,7 +129,7 @@ trait BasePasswordChange extends SecureSocial with I18nSupport {
   def handlePasswordChange = csrfCheck {
     SecuredAction.async { implicit request =>
       execute { form: Form[ChangeInfo] =>
-        form.bindFromRequest()(request).fold(
+        form.bindFromRequest().fold(
           errors => Future.successful(BadRequest(env.viewTemplates.getPasswordChangePage(errors))),
           info => {
             val newPasswordInfo = env.currentHasher.hash(info.newPassword)

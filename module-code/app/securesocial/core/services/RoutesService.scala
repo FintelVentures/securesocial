@@ -88,7 +88,8 @@ trait RoutesService {
   /**
    * The url to start an authentication flow with the given provider
    */
-  def authenticationUrl(provider: String, redirectTo: Option[String] = None)(implicit req: RequestHeader): String
+  def authenticationUrl(provider: String, redirectTo: Option[String] = None, scope: Option[String] = None, authorizationUrlParams: Map[String, String] = Map(), saveMode: Option[String] = None, miscParam: Option[String] = None)(implicit req: RequestHeader): String
+
   def faviconPath: Call
   def jqueryPath: Call
   def bootstrapCssPath: Call
@@ -171,14 +172,20 @@ object RoutesService {
       absoluteUrl(securesocial.controllers.routes.PasswordChange.handlePasswordChange)
     }
 
-    override def authenticationUrl(provider: String, redirectTo: Option[String] = None)(implicit req: RequestHeader): String = {
-      absoluteUrl(securesocial.controllers.routes.ProviderController.authenticate(provider, redirectTo))
+    override def authenticationUrl(provider: String, redirectTo: Option[String] = None, scope: Option[String] = None, authorizationUrlParams: Map[String, String], saveMode: Option[String], miscParam: Option[String])(implicit req: RequestHeader): String = {
+      absoluteUrl(securesocial.controllers.routes.ProviderController.authenticate(provider, redirectTo, scope, authorizationUrlParams, saveMode, miscParam))
     }
 
     protected def valueFor(key: String) = {
       val value = configuration.get[String](key)
       logger.debug(s"[securesocial] $key = $value")
       securesocial.controllers.routes.Assets.at(value)
+    }
+
+    protected def absoluteValueFor(key: String) = {
+      val value = configuration.get[String](key)
+      logger.debug(s"[securesocial] $key = $value")
+      Call("GET", value)
     }
 
     protected def valueFor(key: String, default: String) = {
@@ -197,13 +204,13 @@ object RoutesService {
      * Loads the Jquery file to use from configuration, using a default one if not provided
      * @return the path to Jquery file to use
      */
-    override val jqueryPath = valueFor(JQueryKey)
+    override val jqueryPath = absoluteValueFor(JQueryKey)
 
     /**
      * Loads the Bootstrap CSS file to use from configuration, using a default one if not provided
      * @return the path to Bootstrap CSS file to use
      */
-    override val bootstrapCssPath = valueFor(BootstrapCssKey)
+    override val bootstrapCssPath = absoluteValueFor(BootstrapCssKey)
     /**
      * Loads the Custom Css file to use from configuration. If there is none define, none will be used
      * @return Option containing a custom css file or None

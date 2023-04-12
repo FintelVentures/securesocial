@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 import play.api.mvc.{ ControllerComponents, RequestHeader }
 import securesocial.core._
-import service.{ DemoUser, MyEnvironment }
+import service.MyEnvironment
 
 class Application @Inject() (val controllerComponents: ControllerComponents)(override implicit val env: MyEnvironment)
   extends securesocial.core.SecureSocialController {
@@ -46,11 +46,11 @@ class Application @Inject() (val controllerComponents: ControllerComponents)(ove
       Ok(s"Your id is $userId")
     }
   }
-}
 
-// An Authorization implementation that only authorizes uses that logged in using twitter
-case class WithProvider(provider: String) extends Authorization[DemoUser] {
-  def isAuthorized(user: DemoUser, request: RequestHeader) = {
-    user.main.providerId == provider
+  // An Authorization implementation that only authorizes uses that logged in using twitter
+  case class WithProvider(provider: String) extends Authorization[env.U] {
+    def isAuthorized(user: env.U, request: RequestHeader) = {
+      user.main.providerId == provider
+    }
   }
 }

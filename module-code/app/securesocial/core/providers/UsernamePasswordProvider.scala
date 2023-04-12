@@ -19,6 +19,7 @@ package securesocial.core.providers
 import io.methvin.play.autoconfig.AutoConfig
 import org.joda.time.DateTime
 import play.api.data.Form
+import play.api.data.FormBinding.Implicits.formBinding
 import play.api.data.Forms._
 import play.api.i18n.{ I18nSupport, MessagesApi }
 import play.api.mvc._
@@ -61,7 +62,7 @@ class UsernamePasswordProvider[U](
       for (
         user <- maybeUser;
         pinfo <- user.passwordInfo;
-        hasher <- passwordHashers.get(pinfo.hasher) if hasher.matches(pinfo, password)
+        hasher <- passwordHashers.get(pinfo.hasher) if hasher.matches(pinfo, password.trim)
       ) yield {
         user
       }
@@ -96,7 +97,7 @@ class UsernamePasswordProvider[U](
       },
       credentials => {
         val userId = credentials._1.toLowerCase
-        val password = credentials._2
+        val password = credentials._2.trim
 
         profileForCredentials(userId, password).flatMap {
           case Some(profile) => withUpdatedAvatar(profile).map(Authenticated)
