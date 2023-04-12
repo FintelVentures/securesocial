@@ -66,7 +66,7 @@ trait BasePasswordChange extends SecureSocial with I18nSupport {
 
   /** The redirect target of the handlePasswordChange action. */
   def onHandlePasswordChangeGoTo = configuration.get[Option[String]](onPasswordChangeGoTo).getOrElse(
-    securesocial.controllers.routes.PasswordChange.page().url)
+    securesocial.controllers.routes.PasswordChange.page.url)
 
   /**
    * checks if the supplied password matches the stored one
