@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +18,7 @@ package securesocial.core.providers
 
 import play.api.libs.ws.WSResponse
 import securesocial.core._
-import securesocial.core.services.{ CacheService, RoutesService }
+import securesocial.core.services.{CacheService, RoutesService}
 
 import scala.concurrent.Future
 
@@ -27,9 +27,9 @@ import scala.concurrent.Future
  *
  */
 class GitHubProvider(
-  routesService: RoutesService,
-  cacheService: CacheService,
-  client: OAuth2Client)
+                      routesService: RoutesService,
+                      cacheService: CacheService,
+                      client: OAuth2Client)
   extends OAuth2Provider(routesService, client, cacheService) {
   val GetAuthenticatedUser = "https://api.github.com/user?access_token=%s"
   val AccessToken = "access_token"
@@ -44,8 +44,10 @@ class GitHubProvider(
   override val id = GitHubProvider.GitHub
 
   override protected def buildInfo(response: WSResponse): OAuth2Info = {
-    val values: Map[String, String] = response.body.split("&").map(_.split("=")).withFilter(_.size == 2)
-      .map(r => (r(0), r(1)))(collection.breakOut)
+    val values: Map[String, String] = response.body.split("&")
+      .map(_.split("="))
+      .withFilter(_.size == 2)
+      .map(r => (r(0), r(1))).to(List)
     val accessToken = values.get(OAuth2Constants.AccessToken)
     if (accessToken.isEmpty) {
       logger.error(s"[securesocial] did not get accessToken from $id")
