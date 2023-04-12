@@ -35,7 +35,7 @@ import scala.concurrent.ExecutionContext
 @Singleton
 class MyEnvironment @Inject() (
   override val configuration: Configuration,
-  override val messagesApi: MessagesApi,
+  override implicit val messagesApi: MessagesApi,
   override val environment: Environment,
   override val wsClient: WSClient,
   override val cacheApi: AsyncCacheApi,
