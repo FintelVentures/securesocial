@@ -47,7 +47,7 @@ class GitHubProvider(
     val values: Map[String, String] = response.body.split("&")
       .map(_.split("="))
       .withFilter(_.size == 2)
-      .map(r => (r(0), r(1))).to(List)
+      .map(r => (r(0), r(1))).to(Map)
     val accessToken = values.get(OAuth2Constants.AccessToken)
     if (accessToken.isEmpty) {
       logger.error(s"[securesocial] did not get accessToken from $id")
