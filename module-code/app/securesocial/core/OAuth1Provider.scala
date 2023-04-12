@@ -127,36 +127,38 @@ abstract class OAuth1Provider(
         // this is the 1st step in the auth flow. We need to get the request tokens
         val callbackUrl = routesService.authenticationUrl(id)
         logger.debug("[securesocial] callback url = " + callbackUrl)
-        client.retrieveRequestToken(callbackUrl).flatMap { accessToken =>
-          val cacheKey = UUID.randomUUID().toString
-          val redirect = Redirect(client.redirectUrl(accessToken.token))
-            .withSession(request.session + (OAuth1Provider.CacheKey -> cacheKey))
-          // set the cache key timeoutfor 5 minutes, plenty of time to log in
-          cacheService
-            .set(cacheKey, accessToken, 300)
-            .map(_ => AuthenticationResult.NavigationFlow(redirect))
+        client.retrieveRequestToken(callbackUrl).flatMap {
+          case accessToken =>
+            val cacheKey = UUID.randomUUID().toString
+            val redirect = Redirect(client.redirectUrl(accessToken.token)).withSession(request.session +
+              (OAuth1Provider.CacheKey -> cacheKey))
+            // set the cache key timeoutfor 5 minutes, plenty of time to log in
+            cacheService.set(cacheKey, accessToken, 300).map {
+              u =>
+                AuthenticationResult.NavigationFlow(redirect)
+            }
         } recover {
           case e =>
             logger.error("[securesocial] error retrieving request token", e)
-            throw AuthenticationException()
+            throw new AuthenticationException()
         }
       } else {
         // 2nd step in the oauth flow
         val cacheKey = request.session.get(OAuth1Provider.CacheKey).getOrElse {
           logger.error("[securesocial] missing cache key in session during OAuth1 flow")
-          throw AuthenticationException()
+          throw new AuthenticationException()
         }
         for (
           requestToken <- cacheService.getAs[RequestToken](cacheKey).recover {
             case e =>
               logger.error("[securesocial] error retrieving entry from cache", e)
-              throw AuthenticationException()
+              throw new AuthenticationException()
           };
           accessToken <- client.retrieveOAuth1Info(
             RequestToken(requestToken.get.token, requestToken.get.secret), verifier.get).recover {
               case e =>
                 logger.error("[securesocial] error retrieving access token", e)
-                throw AuthenticationException()
+                throw new AuthenticationException()
             };
           result <- fillProfile(accessToken)
         ) yield {

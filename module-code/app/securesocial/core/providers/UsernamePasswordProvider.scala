@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,7 +19,6 @@ package securesocial.core.providers
 import io.methvin.play.autoconfig.AutoConfig
 import org.joda.time.DateTime
 import play.api.data.Form
-import play.api.data.FormBinding.Implicits.formBinding
 import play.api.data.Forms._
 import play.api.i18n.{ I18nSupport, MessagesApi }
 import play.api.mvc._
@@ -118,8 +117,10 @@ case class UsernamePasswordConfig(
   enableTokenJob: Boolean,
   signupSkipLogin: Boolean,
   minimumPasswordLength: Int)
+
 object UsernamePasswordConfig {
   implicit val configLoader: ConfigLoader[UsernamePasswordConfig] = AutoConfig.loader
+
   def fromConfiguration(configuration: Configuration): UsernamePasswordConfig =
     configuration.get[UsernamePasswordConfig]("securesocial.userpass")
 }
@@ -136,11 +137,11 @@ object UsernamePasswordProvider {
 /**
  * A token used for reset password and sign up operations
  *
- * @param uuid the token id
- * @param email the user email
- * @param creationTime the creation time
+ * @param uuid           the token id
+ * @param email          the user email
+ * @param creationTime   the creation time
  * @param expirationTime the expiration time
- * @param isSignUp a boolean indicating wether the token was created for a sign up action or not
+ * @param isSignUp       a boolean indicating wether the token was created for a sign up action or not
  */
 case class MailToken(uuid: String, email: String, creationTime: DateTime, expirationTime: DateTime, isSignUp: Boolean) {
   def isExpired = expirationTime.isBeforeNow
